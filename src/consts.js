@@ -1,5 +1,6 @@
-const STORAGE_KEY = 'hasty-note'
+const STORAGE_KEY = 'hasty-gist'
 
+const SET_TOKEN = 'SET_TOKEN'
 const CREATE_NOTE = 'CREATE_NOTE'
 const LOAD_NOTE = 'LOAD_NOTE'
 const CLEAR_LOADED_NOTE_TITLE = 'CLEAR_LOADED_NOTE_TITLE'
@@ -18,6 +19,7 @@ const KEY = {
 
 export default {
   STORAGE_KEY,
+  SET_TOKEN,
   CREATE_NOTE,
   LOAD_NOTE,
   CLEAR_LOADED_NOTE_TITLE,

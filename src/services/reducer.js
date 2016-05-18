@@ -1,4 +1,5 @@
 import {
+  SET_TOKEN,
   CREATE_NOTE,
   LOAD_NOTE,
   CLEAR_LOADED_NOTE_TITLE,
@@ -13,6 +14,10 @@ function reducer(action, state) {
   console.log('reducer', action)
   
   switch (action.type) {
+
+    case SET_TOKEN:
+      state.githubToken = action.data
+      return state
 
     case CREATE_NOTE:
       return state

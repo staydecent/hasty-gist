@@ -20,6 +20,7 @@ import {
 import {handleArrowKeys, searchTitles} from '../services/app-helpers.js'
 
 import Suggestions from './Suggestions.js'
+import Login from './Login.js'
 
 export default App
 
@@ -29,6 +30,8 @@ const valueIn = R.curryN(2, (whitelist, val) => R.contains(val, whitelist))
 function App(state) {
   let {listPos, suggestions, titles, loadedNoteTitle} = state
   suggestions = (suggestions.length) ? suggestions : titles
+  
+  let hasToken = (state.githubToken) ? true : false
 
   console.debug('App', state)
 
@@ -83,18 +86,24 @@ function App(state) {
   // Render our template
   // ----
   const focusHook = (elm) => nextTick(() => elm.focus())
+  const Main = () => {
+    return <div>
+      <form name="search-or-create" onsubmit={submitStream}>
+        <legend>Search your gists, or create a new one</legend>
+        <input 
+          type="text" 
+          name="soc-input" 
+          value={loadedNoteTitle || inputValue()}
+          oninput={inputStream}
+          onkeydown={keyDownStream}
+          hook={focusHook} />
+      </form>
+
+      <Suggestions suggestions={suggestions} pos={listPos} />
+    </div>
+  }
 
   return <div id="app">
-    <form name="search-or-create" onsubmit={submitStream}>
-      <input 
-        type="text" 
-        name="soc-input" 
-        value={loadedNoteTitle || inputValue()}
-        oninput={inputStream}
-        onkeydown={keyDownStream}
-        hook={focusHook} />
-    </form>
-
-    <Suggestions suggestions={suggestions} pos={listPos} />
+    {(hasToken) ? Main() : Login(state)}
   </div>
 }
