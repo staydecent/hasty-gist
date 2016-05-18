@@ -1,0 +1,45 @@
+{
+  "name": "hasty-gist",
+  "version": "0.1.0",
+  "description": "Create and find your gists hastily!",
+  "author": "Adrian Unger",
+  "license": "MIT",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "watchify src/index.js -d -o public/bundle.js -v",
+    "server": "node dev-server.js",
+    "build": "browserify src/index.js -o public/bundle.js",
+    "deploy": "npm run build && surge ./ hasty-gist.surge.sh"
+  },
+  "browserify": {
+    "transform": [
+      [
+        "babelify",
+        {
+          "jsxPragma": "h",
+          "plugins": [
+            "babel-plugin-jsx-factory"
+          ]
+        }
+      ]
+    ]
+  },
+  "dependencies": {
+    "atom": "1.0.0",
+    "main-loop": "3.2.0",
+    "virtual-dom": "2.1.1"
+  },
+  "devDependencies": {
+    "babel-plugin-jsx-factory": "^1.0.1",
+    "babelify": "^6.4.0",
+    "browserify": "^13.0.0",
+    "express": "^4.13.4",
+    "flyd": "^0.2.2",
+    "fuzzy": "^0.1.1",
+    "next-tick": "^0.2.2",
+    "ramda": "^0.21.0",
+    "virtual-hyperscript-hook": "^1.0.0",
+    "watchify": "^3.7.0"
+  }
+}
